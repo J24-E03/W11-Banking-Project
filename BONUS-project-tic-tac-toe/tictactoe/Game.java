@@ -8,10 +8,6 @@ public class Game {
     static String[] board;
     static String turn;
 
-
-    // CheckWinner method will
-    // decide the combination
-    // of three box given below.
     static String checkWinner()
     {
         for (int a = 0; a < 8; a++) {
