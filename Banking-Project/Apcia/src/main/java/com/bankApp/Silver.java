@@ -2,7 +2,7 @@ package bank;
 
 public class Silver extends Level {
 	@Override
-	public void setTheLevel(Customer c) {
+	public void setTheLevel(user c) {
 		if ((c.checkBalance >= 10000) && c.checkBalance < 20000) {
 			c.setLevel(new Gold());
 		}
