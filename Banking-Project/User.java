@@ -7,7 +7,7 @@ public class User {
     private double initialDepositAmount;
     private double  withdrawLimit;
     private double balance;
-    private double depositLimit= 100;
+    private double depositLimit= 10000;
 
     public User(String firstName, String userName, String password, double initialDepositAmount, double withdrawLimit,double balance) {
         this.firstName = firstName;

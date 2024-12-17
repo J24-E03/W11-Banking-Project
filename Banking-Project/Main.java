@@ -21,6 +21,10 @@ public class Main {
         } else if ( choiceFirstPage == 2 ) {
             logInFlow();
         } else if ( choiceFirstPage == 1 ) {
+            //        Just an example
+            User user = new User("Hasan", "hasare", "something", 100, 800, 100);
+            users.add(user);
+
             singUpFlow();
         } else {
             firstPage();
@@ -30,6 +34,8 @@ public class Main {
     public static void singUpFlow() {
 
         System.out.println("You are in sign up Flow!!!");
+//        just for test
+        System.out.println(users);
 
         System.out.println("Enter your firstname: ");
         String firstName = scanner.nextLine();
@@ -63,7 +69,7 @@ public class Main {
                 isPasswordOk = true;
                 passwordAfterCheck = password;
             } else {
-                System.out.println("Your username is not in lowercase form !");
+                System.out.println("Your password must be at least 6 character!");
             }
         }
 
@@ -83,6 +89,8 @@ public class Main {
 
     public static void logInFlow() {
         System.out.println("You are in log in Flow!!!");
+        //        just for test
+        System.out.println(users);
 
         System.out.println("Enter your username : ");
         String userName = scanner.nextLine();
@@ -106,11 +114,18 @@ public class Main {
     }
 
     public static void loggedInUserMenu() {
+        System.out.println("You are in user menu!!!");
+        //        just for test
+        System.out.println(users);
+
         System.out.println("1.Show Balance \n2.Deposit \n3.Withdraw \n4.Reset Password \n5.Logout");
         int choiceUserMenu = scanner.nextInt();
         scanner.nextLine();
         if ( choiceUserMenu == 5 ) {
             System.out.println("Have a nice Day!");
+            currentUser = null;
+            firstPage();
+
         } else if ( choiceUserMenu == 4 ) {
             resetPassword();
         } else if ( choiceUserMenu == 3 ) {
@@ -120,6 +135,8 @@ public class Main {
         } else if ( choiceUserMenu == 1 ) {
             System.out.println("Your current balance is : " + currentUser.getBalance() + "€.");
             loggedInUserMenu();
+        }else {
+            loggedInUserMenu();
         }
     }
 
@@ -127,12 +144,12 @@ public class Main {
 
         System.out.println("How much do you want to deposit in your account:");
         double depositAmount = scanner.nextDouble();
-        if ( depositAmount > currentUser.getDepositLimit() ) {
+        if ( depositAmount <= currentUser.getDepositLimit() ) {
             currentUser.setBalance(currentUser.getBalance() + depositAmount);
             System.out.println("Your deposit was successful!");
             loggedInUserMenu();
         } else {
-            System.out.println("Your deposit doesn't pass the deposit limit");
+            System.out.println("Sorry, your deposit request has passed the deposit limit");
             loggedInUserMenu();
         }
     }
@@ -141,12 +158,12 @@ public class Main {
 
         System.out.println("How much do you want to withdraw from your account:");
         double withdrawAmount = scanner.nextDouble();
-        if ( withdrawAmount < currentUser.getWithdrawLimit() ) {
+        if ( withdrawAmount <= currentUser.getWithdrawLimit() ) {
             currentUser.setBalance(currentUser.getBalance() - withdrawAmount);
             System.out.println("Your withdraw was successful!");
             loggedInUserMenu();
         } else {
-            System.out.println("Your withdraw request is higher than the withdraw limit");
+            System.out.println("Sorry, your withdraw request is higher than the withdraw limit");
             loggedInUserMenu();
         }
     }
@@ -167,6 +184,10 @@ public class Main {
 
                     isPasswordOk = true;
                     passwordAfterCheck = password;
+                    currentUser.setPassword(passwordAfterCheck);
+                    System.out.println("Your password has been successfully changed!");
+                    loggedInUserMenu();
+
                 } else {
                     System.out.println("Your username is not in lowercase form !");
                 }
@@ -175,7 +196,7 @@ public class Main {
         } else {
             System.out.println("Your given password is wrong!");
 
-            resetPassword();
+            loggedInUserMenu();
         }
     }
 }
